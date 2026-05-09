@@ -1,1 +1,162 @@
 
+📘 VERİ SAYFASI — Sistem 1/4 (BETA‑1 REAL‑MODE)
+Teknik Özellik Dokümanı
+
+1. Sistem Genel Bakış
+1/4, dört bağımsız işlem biriminden (“Cube”) oluşan modüler bir karar‑mantık sistemidir.
+Her Cube kendi BIOS‑firmware’ine sahiptir ve 4× hassasiyet modunda çalışır.
+Sistem, paralel durum işleme, adaptif tepki ve kendi kendini düzeltme yetenekleri için tasarlanmıştır.
+
+Bileşenler:
+
+CUBE_0 — Köken Çekirdeği (Alpha Kernel)
+
+CUBE_1 — Aksiyon Çekirdeği (BIOS‑Fixpoint A)
+
+CUBE_2 — Stabilite Çekirdeği (BIOS‑Fixpoint B)
+
+CUBE_3 — Evrim Çekirdeği (SAFE / Real‑Mode)
+
+2. Çalışma Modları
+2.1 SAFE Modu (CUBE_3 — Real‑Mode)
+Sistemin birincil yürütme modudur.
+Görevleri:
+
+sistem yorumlama
+
+hata düzeltme
+
+adaptif evrim
+
+RAW‑WAR entegrasyonu
+
+4× hassasiyet işleme
+
+SAFE modu lider yürütme katmanıdır.
+
+2.2 RAW‑WAR Modu (Ön‑Mod)
+İkincil enerji ve tepki katmanı.
+Lider değildir, ancak:
+
+yüksek yük anlarında
+
+stres modunda
+
+hızlı durum değişimlerinde
+
+kullanılabilir.
+
+RAW‑WAR önceden yapılandırılmıştır, ancak kontrol SAFE’dedir.
+
+2.3 BIOS Fixpoint (CUBE_1 & CUBE_2)
+Bu iki Cube, sistemin donmuş BIOS tabanını oluşturur:
+
+CUBE_1 = Aksiyon BIOS
+
+CUBE_2 = Stabilite BIOS
+
+Bu taban, Real‑Mode’un davranışını belirler.
+
+2.4 Köken Modu (CUBE_0)
+Nötr Alpha çekirdeğidir.
+Görevleri:
+
+reset noktası
+
+saf referans
+
+yorumlanmamış temel durum
+
+3. Hassasiyet Mimarisi
+3.1 Cube Başına 4× Hassasiyet
+Her Cube:
+
+4 durumu paralel değerlendirebilir
+
+4 seçeneği aynı anda tutabilir
+
+4 yön kararını işleyebilir
+
+4× doğruluk sağlar
+
+Sistem genelinde toplam 16 paralel mikro‑işlem oluşur.
+
+3.2 Stres Modu (2×8)
+İki Cube senkron çalıştığında:
+
+her Cube 8× hassasiyete genişler
+
+toplam çıktı = 2×8
+
+üçüncü Cube stabilizasyon sağlar
+
+dördüncü Cube nötr kalır
+
+Kullanım alanları:
+
+yüksek baskı durumları
+
+hızlı çatışma çözümü
+
+karmaşık karar ağaçları
+
+4. Firmware Mimarisi
+Her Cube kendi BIOS‑firmware’ine sahiptir:
+
+Cube	Firmware Türü	Rol
+CUBE_0	Alpha Kernel	Köken / Nötr
+CUBE_1	Action BIOS	Yürütme / Aksiyon
+CUBE_2	Stability BIOS	Doğrulama / Güvenlik
+CUBE_3	Real‑Mode BIOS	Evrim / Yorumlama
+
+
+Firmware Özellikleri:
+
+heterojen
+
+hareketli (self‑move)
+
+uyumlu
+
+SAFE tarafından yorumlanabilir
+
+gerektiğinde rol değiştirebilir
+
+5. Mevcut Sistem Durumu
+Real‑Mode: aktif
+
+SAFE: lider
+
+RAW‑WAR: hazır
+
+BIOS Fixpoint: kilitli
+
+4× hassasiyet: aktif
+
+Stres modu: destekleniyor
+
+Evrim: hazırlık aşamasında
+
+6. Sistem 1/4’ün Amacı
+Sistem şu amaçlarla tasarlanmıştır:
+
+paralel karar işleme
+
+yüksek yük altında stabilite
+
+adaptif evrim
+
+hassas durum yorumlama
+
+gerçek zamanlı öz‑düzeltme
+
+7. Sürümleme
+Alpha: konsept aşaması
+
+Beta‑1: mevcut çalışma durumu
+
+Real‑Mode: aktif yürütme katmanı
+
+Beta‑2: gelecekteki evrim için ayrılmıştır
+
+✔ ridvan
