@@ -1,162 +1,174 @@
+📘 VERİ SAYFASI — Sistem 1/4 (BETA‑2 REAL‑MODE / X4‑VALID)
+Teknik Şartname — Yeni Tanıma Katmanı
 
-📘 VERİ SAYFASI — Sistem 1/4 (BETA‑1 REAL‑MODE)
-Teknik Özellik Dokümanı
+1. Sistem Kimliği (Yeni Tanıma)
+Sistem Adı: Sistem 1/4 — X4‑VALID Mimarisi  
+Sürüm: BETA‑2 (Real‑Mode Evrimi)
+Durum: Aktif Çalışma Katmanı
+Eski Katman: BETA‑1 (silinmez, eski yorum olarak çalışır)
 
-1. Sistem Genel Bakış
-1/4, dört bağımsız işlem biriminden (“Cube”) oluşan modüler bir karar‑mantık sistemidir.
-Her Cube kendi BIOS‑firmware’ine sahiptir ve 4× hassasiyet modunda çalışır.
-Sistem, paralel durum işleme, adaptif tepki ve kendi kendini düzeltme yetenekleri için tasarlanmıştır.
+Yeni Tanıma:  
+Sistem X16 ile çalışmaz.
+Doğru mimari şudur:
 
-Bileşenler:
+X4 + 3× doğruluk onayı = X4‑VALID
+→ 4× çekirdek modu
+→ 3× doğrulama katmanı
+→ 12× doğrulanmış hassasiyet
+→ X16 modu yok, taşma yok
 
-CUBE_0 — Köken Çekirdeği (Alpha Kernel)
+2. Sistem Genel Bakış (Güncellendi)
+Sistem 1/4, dört bağımsız fakat senkronize olabilir işlem biriminden (“Küp”) oluşur:
 
-CUBE_1 — Aksiyon Çekirdeği (BIOS‑Fixpoint A)
+CUBE_0 — Origin Kernel  
+Nötr, reset, referans
 
-CUBE_2 — Stabilite Çekirdeği (BIOS‑Fixpoint B)
+CUBE_1 — Action Kernel  
+Eylem, impuls, hareket
 
-CUBE_3 — Evrim Çekirdeği (SAFE / Real‑Mode)
+CUBE_2 — Stability Kernel  
+Güvenlik, doğrulama, düzeltme
 
-2. Çalışma Modları
-2.1 SAFE Modu (CUBE_3 — Real‑Mode)
-Sistemin birincil yürütme modudur.
-Görevleri:
+CUBE_3 — Evolution Kernel (SAFE)  
+Yorumlama, adaptasyon, liderlik
 
-sistem yorumlama
+Yeni Tanıma:  
+Tüm küpler X4 modunda çalışır,
+ancak her karar üç katmanlı doğrulama ile onaylanır.
 
-hata düzeltme
+3. Hassasiyet Mimarisi (Düzeltilmiş)
+3.1 X4 Birincil Hassasiyet
+Her küp:
 
-adaptif evrim
+4 paralel durumu
 
-RAW‑WAR entegrasyonu
+4 yönü
 
-4× hassasiyet işleme
+4 seçeneği
 
-SAFE modu lider yürütme katmanıdır.
+4× doğruluk seviyesini
 
-2.2 RAW‑WAR Modu (Ön‑Mod)
-İkincil enerji ve tepki katmanı.
-Lider değildir, ancak:
+aynı anda işler.
 
-yüksek yük anlarında
+Bu sistemin gerçek çekirdek modudur.
 
-stres modunda
+3.2 Üçlü Doğrulama Katmanı (3×)
+Her X4 kararı üç doğrulama aşamasından geçer:
 
-hızlı durum değişimlerinde
+Eylem doğrulaması
 
-kullanılabilir.
+Stabilite doğrulaması
 
-RAW‑WAR önceden yapılandırılmıştır, ancak kontrol SAFE’dedir.
+SAFE doğrulaması
 
-2.3 BIOS Fixpoint (CUBE_1 & CUBE_2)
-Bu iki Cube, sistemin donmuş BIOS tabanını oluşturur:
+Sonuç:
 
-CUBE_1 = Aksiyon BIOS
+𝑋
+4
+×
+3
+=
+𝑋
+12
+_
+valid
+X12_valid = hız değil, doğruluk.
 
-CUBE_2 = Stabilite BIOS
+3.3 Stress‑Mode (2×8) — düzeltilmiş
+Stress‑Mode artık:
 
-Bu taban, Real‑Mode’un davranışını belirler.
+X4‑Valid temeliyle çalışır
 
-2.4 Köken Modu (CUBE_0)
-Nötr Alpha çekirdeğidir.
-Görevleri:
+X16 ile değil
 
-reset noktası
+İşleyiş:
 
-saf referans
+İki küp senkronize olur → her biri 8× hassasiyet
 
-yorumlanmamış temel durum
+Üçüncü küp stabilizasyon sağlar
 
-3. Hassasiyet Mimarisi
-3.1 Cube Başına 4× Hassasiyet
-Her Cube:
+Dördüncü küp nötr kalır
 
-4 durumu paralel değerlendirebilir
+4. Çalışma Modları (Güncellendi)
+SAFE Modu (CUBE_3)
+Lider
 
-4 seçeneği aynı anda tutabilir
+Yorumlayıcı
 
-4 yön kararını işleyebilir
+Doğrulayıcı
 
-4× doğruluk sağlar
+BIOS rollerini değiştirebilir
 
-Sistem genelinde toplam 16 paralel mikro‑işlem oluşur.
+RAW‑WAR’ı modüle edebilir
 
-3.2 Stres Modu (2×8)
-İki Cube senkron çalıştığında:
+SAFE artık meta‑liderlik katmanıdır.
 
-her Cube 8× hassasiyete genişler
+RAW‑WAR Modu
+ikincil
 
-toplam çıktı = 2×8
+ani güç patlaması verebilir
 
-üçüncü Cube stabilizasyon sağlar
+stres uyumlu
 
-dördüncü Cube nötr kalır
+baskın değil
 
-Kullanım alanları:
+adaptif
 
-yüksek baskı durumları
+BIOS Sabit Noktaları (CUBE_1 & CUBE_2)
+sabit kalır
 
-hızlı çatışma çözümü
+soft‑unlock olabilir
 
-karmaşık karar ağaçları
+RAW‑WAR filtreler
 
-4. Firmware Mimarisi
-Her Cube kendi BIOS‑firmware’ine sahiptir:
+SAFE’i önceliklendirir
 
-Cube	Firmware Türü	Rol
-CUBE_0	Alpha Kernel	Köken / Nötr
-CUBE_1	Action BIOS	Yürütme / Aksiyon
-CUBE_2	Stability BIOS	Doğrulama / Güvenlik
-CUBE_3	Real‑Mode BIOS	Evrim / Yorumlama
+Origin Modu (CUBE_0)
+nötr
 
+reset atabilir
 
-Firmware Özellikleri:
+drift yapmaz
 
-heterojen
+SAFE’i yansıtır
 
-hareketli (self‑move)
-
-uyumlu
-
-SAFE tarafından yorumlanabilir
-
-gerektiğinde rol değiştirebilir
-
-5. Mevcut Sistem Durumu
+5. Sistem Durumu (Güncel)
 Real‑Mode: aktif
 
 SAFE: lider
 
 RAW‑WAR: hazır
 
-BIOS Fixpoint: kilitli
+X4‑Valid: aktif
 
-4× hassasiyet: aktif
+Üçlü doğrulama: aktif
 
-Stres modu: destekleniyor
+Stress‑Mode: hazır
 
-Evrim: hazırlık aşamasında
+Evrim: devam ediyor
 
-6. Sistem 1/4’ün Amacı
-Sistem şu amaçlarla tasarlanmıştır:
+6. Amaç (Güncellendi)
+Sistem 1/4 şunları sağlar:
 
-paralel karar işleme
+yüksek doğrulukta karar verme
 
-yüksek yük altında stabilite
+yük altında stabilite
 
 adaptif evrim
 
-hassas durum yorumlama
+paralel yorumlama
 
-gerçek zamanlı öz‑düzeltme
+X4 modunun korunması
 
-7. Sürümleme
-Alpha: konsept aşaması
+doğrulama garantisi
 
-Beta‑1: mevcut çalışma durumu
+7. Sürümleme (Güncellendi)
+Alpha: konsept
 
-Real‑Mode: aktif yürütme katmanı
+BETA‑1: eski tanıma (X16 hata içerir)
 
-Beta‑2: gelecekteki evrim için ayrılmıştır
+BETA‑2: yeni tanıma (X4‑Valid)
+
+BETA‑3: dış entegrasyon için ayrılmış
 
 ✔ ridvan
