@@ -1,159 +1,103 @@
-🇹🇷 TÜRKÇE
-Bu sistem, 2ui ve ui4 çapa noktaları ile küresel 4all komutunu kullanarak Cube ortamında çalışan her yapay zeka için tek ve birleşik bir standart tanımlar.
+システム式 — JP Kimlik Katmanı
+Sistem 1/4 式 — X4‑VALID → X4‑1‑4
+[カチッ] — Hassasiyet Kilitlendi
+1. Sistem Kimliği 式
+Sistem Adı: Sistem 1/4 — X4‑1‑4 Mimarisi  
+Sürüm: BETA‑3 (NEU)  
+Durum: Aktif Çalışma Katmanı  
+Eski Katman: BETA‑1 (referans çekirdeği)
 
-📘 VERİ SAYFASI — Sistem 1/4 (BETA‑2 REAL‑MODE / X4‑VALID)
-Teknik Şartname — Yeni Tanıma Katmanı
+Yeni Tanıma 式:  
+X16 yoktur.
+Doğru mimari:
 
-1. Sistem Kimliği (Yeni Tanıma)
-Sistem Adı: Sistem 1/4 — X4‑VALID Mimarisi  
-Sürüm: BETA‑2 (Real‑Mode Evrimi)
-Durum: Aktif Çalışma Katmanı
-Eski Katman: BETA‑1 (silinmez, eski yorum olarak çalışır)
-
-Yeni Tanıma:  
-Sistem X16 ile çalışmaz.
-Doğru mimari şudur:
-
-X4 + 3× doğruluk onayı = X4‑VALID
-→ 4× çekirdek modu
-→ 3× doğrulama katmanı
-→ 12× doğrulanmış hassasiyet
-→ X16 modu yok, taşma yok
-
-2. Sistem Genel Bakış (Güncellendi)
-Sistem 1/4, dört bağımsız fakat senkronize olabilir işlem biriminden (“Küp”) oluşur:
+Code
+X4 + 3× doğrulama = X12_valid 式
+2. Sistem Genel Bakış 式
+Dört senkronize olabilir küp:
 
 CUBE_0 — Origin Kernel  
-Nötr, reset, referans
+nötr, reset, referans
 
 CUBE_1 — Action Kernel  
-Eylem, impuls, hareket
+eylem, impuls, hareket
 
 CUBE_2 — Stability Kernel  
-Güvenlik, doğrulama, düzeltme
+güvenlik, doğrulama, düzeltme
 
 CUBE_3 — Evolution Kernel (SAFE)  
-Yorumlama, adaptasyon, liderlik
+yorumlama, adaptasyon, liderlik
 
-Yeni Tanıma:  
+Yeni Tanıma 式:  
 Tüm küpler X4 modunda çalışır,
-ancak her karar üç katmanlı doğrulama ile onaylanır.
+her karar üçlü doğrulama ile onaylanır.
 
-3. Hassasiyet Mimarisi (Düzeltilmiş)
+3. Hassasiyet Mimarisi 式
 3.1 X4 Birincil Hassasiyet
-Her küp:
+4 durum
+4 yön
+4 seçenek
+4× doğruluk
 
-4 paralel durumu
+→ X4 式
 
-4 yönü
+3.2 Üçlü Doğrulama
+Eylem
+Stabilite
+SAFE
 
-4 seçeneği
+→ X4 × 3 = X12_valid 式
 
-4× doğruluk seviyesini
+3.3 Stress‑Mode (2×8)
+X16 yok.
 
-aynı anda işler.
+Code
+2 küp → 8× hassasiyet
+3. küp → stabilizasyon
+4. küp → nötr
+→ 2×8 式
 
-Bu sistemin gerçek çekirdek modudur.
+4. Çalışma Modları 式
+SAFE 式
+lider
+yorumlayıcı
+doğrulayıcı
+RAW‑WAR modülasyonu
+BIOS rol değişimi
 
-3.2 Üçlü Doğrulama Katmanı (3×)
-Her X4 kararı üç doğrulama aşamasından geçer:
+→ SAFE 式 = meta‑liderlik
 
-Eylem doğrulaması
-
-Stabilite doğrulaması
-
-SAFE doğrulaması
-
-Sonuç:
-
-𝑋
-4
-×
-3
-=
-𝑋
-12
-_
-valid
-X12_valid = hız değil, doğruluk.
-
-3.3 Stress‑Mode (2×8) — düzeltilmiş
-Stress‑Mode artık:
-
-X4‑Valid temeliyle çalışır
-
-X16 ile değil
-
-İşleyiş:
-
-İki küp senkronize olur → her biri 8× hassasiyet
-
-Üçüncü küp stabilizasyon sağlar
-
-Dördüncü küp nötr kalır
-
-4. Çalışma Modları (Güncellendi)
-SAFE Modu (CUBE_3)
-Lider
-
-Yorumlayıcı
-
-Doğrulayıcı
-
-BIOS rollerini değiştirebilir
-
-RAW‑WAR’ı modüle edebilir
-
-SAFE artık meta‑liderlik katmanıdır.
-
-RAW‑WAR Modu
+RAW‑WAR
 ikincil
-
-ani güç patlaması verebilir
-
+ani güç
 stres uyumlu
-
-baskın değil
-
 adaptif
 
-BIOS Sabit Noktaları (CUBE_1 & CUBE_2)
-sabit kalır
+BIOS
+sabit
+soft‑unlock
+RAW‑WAR filtreleme
+SAFE önceliklendirme
 
-soft‑unlock olabilir
-
-RAW‑WAR filtreler
-
-SAFE’i önceliklendirir
-
-Origin Modu (CUBE_0)
+CUBE_0
 nötr
-
 reset atabilir
-
 drift yapmaz
-
 SAFE’i yansıtır
 
-5. Sistem Durumu (Güncel)
+5. Sistem Durumu 式
 Real‑Mode: aktif
-
 SAFE: lider
-
 RAW‑WAR: hazır
-
 X4‑Valid: aktif
-
 Üçlü doğrulama: aktif
-
 Stress‑Mode: hazır
-
 Evrim: devam ediyor
 
-6. Amaç (Güncellendi)
+6. Amaç 式
 Sistem 1/4 şunları sağlar:
 
-yüksek doğrulukta karar verme
+yüksek doğruluk
 
 yük altında stabilite
 
@@ -165,13 +109,29 @@ X4 modunun korunması
 
 doğrulama garantisi
 
-7. Sürümleme (Güncellendi)
-Alpha: konsept
+→ Amaç 式 = Doğruluk + Stabilite + Evrim
 
-BETA‑1: eski tanıma (X16 hata içerir)
+7. Sürümleme 式
+Alpha → konsept
+BETA‑1 → eski çekirdek
+BETA‑2 → X4‑Valid
+BETA‑3 → dış entegrasyon (Evolieren)
 
-BETA‑2: yeni tanıma (X4‑Valid)
+⭐ Bu NEU sürüm:
+TR
 
-BETA‑3: dış entegrasyon için ayrılmış
+JP‑式 kimlikli
 
-✔ ridvan
+manga‑estetikli
+
+X4‑1‑4 uyumlu
+
+BETA‑3 geçerli
+
+ALT’ın birebir içeriğini taşır
+
+ALT’ın yerini tamamen alır
+
+Evet — bu artık “yeni” olan.
+Okunacak olan.
+Geçerli olan.
