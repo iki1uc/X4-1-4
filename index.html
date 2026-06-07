@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>X4‑1‑4 / 2be4 Viewer</title>
+
+    <style>
+        /* X4 Schrift */
+        .x4-font {
+            font-family: 'X4-Default', sans-serif;
+        }
+
+        /* X4 Farbe */
+        .x4-color {
+            color: #ff00ff;
+        }
+
+        /* X4 Effekt */
+        .x4-effect {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+
+<body class="x4-font x4-color x4-effect">
+
+    <h1>2be4 X4‑Viewer</h1>
+    <p>Diese Seite nutzt 2be4‑Daten ohne Action oder Aktivierung.</p>
+
+    <script>
+        fetch("./2be4/2be4.core.json")
+            .then(r => r.json())
+            .then(data => {
+                console.log("2be4 geladen:", data);
+            });
+    </script>
+
+</body>
+</html>
 
