@@ -2,45 +2,58 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>X4‑1‑4 / 2be4 Viewer</title>
+    <title>X4‑1‑4 / 2be4 Active System</title>
 
-    <style>
-        /* X4 Schrift */
-        .x4-font {
-            font-family: 'X4-Default', sans-serif;
-        }
-
-        /* X4 Farbe */
-        .x4-color {
-            color: #ff00ff;
-        }
-
-        /* X4 Effekt */
-        .x4-effect {
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-    </style>
+    <style id="x4-style"></style>
 </head>
 
-<body class="x4-font x4-color x4-effect">
+<body>
 
-    <h1>2be4 X4‑Viewer</h1>
-    <p>Diese Seite nutzt 2be4‑Daten ohne Action oder Aktivierung.</p>
+    <h1 id="title">X4‑1‑4 System aktiv</h1>
+    <p id="info">Lade 2be4…</p>
 
     <script>
-        fetch("./2be4/2be4.core.json")
-            .then(r => r.json())
-            .then(data => {
-                console.log("2be4 geladen:", data);
-            });
+        async function load2be4() {
+            const res = await fetch("./2be4/2be4.core.json");
+            return await res.json();
+        }
+
+        function applyX4(x4) {
+            const style = document.getElementById("x4-style");
+
+            style.innerHTML = `
+                body {
+                    font-family: ${x4.font};
+                    color: ${x4.color};
+                    animation: ${x4.effect} 1.5s infinite;
+                }
+
+                @keyframes pulse {
+                    0% { opacity: 1; }
+                    50% { opacity: 0.4; }
+                    100% { opacity: 1; }
+                }
+
+                @keyframes glow {
+                    0% { text-shadow: 0 0 5px ${x4.color}; }
+                    50% { text-shadow: 0 0 20px ${x4.color}; }
+                    100% { text-shadow: 0 0 5px ${x4.color}; }
+                }
+            `;
+        }
+
+        async function start() {
+            const data = await load2be4();
+
+            document.getElementById("info").innerText =
+                "2be4 geladen – ZeroThree 0/1 aktiv: " +
+                data.zeroRef.zero + " / " + data.zeroRef.one;
+
+            applyX4(data.x4);
+        }
+
+        start();
     </script>
 
 </body>
 </html>
-
