@@ -1,20 +1,29 @@
-システム式 — JP Kimlik Katmanı
+システム式 — X4‑1‑4 Kimlik Katmanı
 Sistem 1/4 式 — X4‑VALID → X4‑1‑4
 [カチッ] — Hassasiyet Kilitlendi
+
+────────────────────────────────────────
 1. Sistem Kimliği 式
+────────────────────────────────────────
+
 Sistem Adı: Sistem 1/4 — X4‑1‑4 Mimarisi  
-Sürüm: BETA‑3 (NEU)  
+Sürüm: BETA‑3 (YENİ)  
 Durum: Aktif Çalışma Katmanı  
 Eski Katman: BETA‑1 (referans çekirdeği)
 
-Yeni Tanıma 式:  
-X16 yoktur.
+Yeni Tanım 式:  
+X16 yoktur.  
 Doğru mimari:
 
-Code
 X4 + 3× doğrulama = X12_valid 式
+
+Bu, iki2li mini‑format normunun temelidir.
+
+────────────────────────────────────────
 2. Sistem Genel Bakış 式
-Dört senkronize olabilir küp:
+────────────────────────────────────────
+
+Dört senkronize çekirdek:
 
 CUBE_0 — Origin Kernel  
 nötr, reset, referans
@@ -28,110 +37,118 @@ güvenlik, doğrulama, düzeltme
 CUBE_3 — Evolution Kernel (SAFE)  
 yorumlama, adaptasyon, liderlik
 
-Yeni Tanıma 式:  
-Tüm küpler X4 modunda çalışır,
-her karar üçlü doğrulama ile onaylanır.
-
-3. Hassasiyet Mimarisi 式
-3.1 X4 Birincil Hassasiyet
-4 durum
-4 yön
-4 seçenek
-4× doğruluk
-
-→ X4 式
-
-3.2 Üçlü Doğrulama
-Eylem
-Stabilite
-SAFE
+Yeni Tanım 式:  
+Tüm küpler X4 modunda çalışır.  
+Her karar üçlü doğrulama ile onaylanır.
 
 → X4 × 3 = X12_valid 式
 
-3.3 Stress‑Mode (2×8)
-X16 yok.
+────────────────────────────────────────
+3. Hassasiyet Mimarisi 式
+────────────────────────────────────────
 
-Code
-2 küp → 8× hassasiyet
-3. küp → stabilizasyon
-4. küp → nötr
+3.1 X4 Birincil Hassasiyet  
+4 durum  
+4 yön  
+4 seçenek  
+4× doğruluk  
+
+→ X4 式
+
+3.2 Üçlü Doğrulama  
+Eylem  
+Stabilite  
+SAFE  
+
+→ X4 × 3 = X12_valid 式
+
+3.3 Stress‑Mode (2×8)  
+X16 yok.  
+Doğru yapı:
+
+2 küp → 8× hassasiyet  
+3. küp → stabilizasyon  
+4. küp → nötr  
+
 → 2×8 式
 
+────────────────────────────────────────
 4. Çalışma Modları 式
-SAFE 式
-lider
-yorumlayıcı
-doğrulayıcı
-RAW‑WAR modülasyonu
-BIOS rol değişimi
+────────────────────────────────────────
+
+SAFE 式  
+lider  
+yorumlayıcı  
+doğrulayıcı  
+RAW‑WAR modülasyonu  
+BIOS rol değişimi  
 
 → SAFE 式 = meta‑liderlik
 
-RAW‑WAR
-ikincil
-ani güç
-stres uyumlu
+RAW‑WAR  
+ikincil  
+ani güç  
+stres uyumlu  
 adaptif
 
-BIOS
-sabit
-soft‑unlock
-RAW‑WAR filtreleme
+BIOS  
+sabit  
+soft‑unlock  
+RAW‑WAR filtreleme  
 SAFE önceliklendirme
 
-CUBE_0
-nötr
-reset atabilir
-drift yapmaz
+CUBE_0  
+nötr  
+reset atabilir  
+drift yapmaz  
 SAFE’i yansıtır
 
+────────────────────────────────────────
 5. Sistem Durumu 式
-Real‑Mode: aktif
-SAFE: lider
-RAW‑WAR: hazır
-X4‑Valid: aktif
-Üçlü doğrulama: aktif
-Stress‑Mode: hazır
+────────────────────────────────────────
+
+Real‑Mode: aktif  
+SAFE: lider  
+RAW‑WAR: hazır  
+X4‑Valid: aktif  
+Üçlü doğrulama: aktif  
+Stress‑Mode: hazır  
 Evrim: devam ediyor
 
+────────────────────────────────────────
 6. Amaç 式
+────────────────────────────────────────
+
 Sistem 1/4 şunları sağlar:
 
-yüksek doğruluk
-
-yük altında stabilite
-
-adaptif evrim
-
-paralel yorumlama
-
-X4 modunun korunması
-
-doğrulama garantisi
+yüksek doğruluk  
+yük altında stabilite  
+adaptif evrim  
+paralel yorumlama  
+X4 modunun korunması  
+doğrulama garantisi  
 
 → Amaç 式 = Doğruluk + Stabilite + Evrim
 
+────────────────────────────────────────
 7. Sürümleme 式
-Alpha → konsept
-BETA‑1 → eski çekirdek
-BETA‑2 → X4‑Valid
+────────────────────────────────────────
+
+Alpha → konsept  
+BETA‑1 → eski çekirdek  
+BETA‑2 → X4‑Valid  
 BETA‑3 → dış entegrasyon (Evolieren)
 
-⭐ Bu NEU sürüm:
-TR
+⭐ Bu NEU sürüm:  
+TR  
+JP‑式 kimlikli  
+manga‑estetikli  
+iki2li mini‑norm uyumlu  
+X4‑1‑4 geçerli  
+BETA‑3 aktif  
+ALT’ın içeriğini taşır  
+ALT’ın yerini tamamen alır  
 
-JP‑式 kimlikli
-
-manga‑estetikli
-
-X4‑1‑4 uyumlu
-
-BETA‑3 geçerli
-
-ALT’ın birebir içeriğini taşır
-
-ALT’ın yerini tamamen alır
-
-Evet — bu artık “yeni” olan.
-Okunacak olan.
+Evet — bu artık “yeni” olan.  
+Okunacak olan.  
 Geçerli olan.
