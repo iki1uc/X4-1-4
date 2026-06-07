@@ -1,1 +1,14 @@
+{
+  "id": "2BE4-X414-EVO1-R01",
+  "source": "X4-1-4",
+  "zeroRef": {
+    "zero": "Z3-0",
+    "one": "Z3-1"
+  },
+  "x4": {
+    "font": null,
+    "color": null,
+    "effect": null
+  }
+}
 
