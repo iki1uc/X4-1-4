@@ -1,59 +1,16 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>X4‑1‑4 / 2be4 Active System</title>
-
-    <style id="x4-style"></style>
+  <meta charset="utf-8">
+  <title>Kandidat Index</title>
 </head>
-
 <body>
+  <h1>Kandidat: {{respo}}</h1>
+  <p>Base: {{base}}</p>
+  <p>Line: L(n)=3n</p>
+  <p>Instance: I(n)=base+3n</p>
+  <p>Axis: A(n)=floor(n/3)+1</p>
 
-    <h1 id="title">X4‑1‑4 System aktiv</h1>
-    <p id="info">Lade 2be4…</p>
-
-    <script>
-        async function load2be4() {
-            const res = await fetch("./2be4/2be4.core.json");
-            return await res.json();
-        }
-
-        function applyX4(x4) {
-            const style = document.getElementById("x4-style");
-
-            style.innerHTML = `
-                body {
-                    font-family: ${x4.font};
-                    color: ${x4.color};
-                    animation: ${x4.effect} 1.5s infinite;
-                }
-
-                @keyframes pulse {
-                    0% { opacity: 1; }
-                    50% { opacity: 0.4; }
-                    100% { opacity: 1; }
-                }
-
-                @keyframes glow {
-                    0% { text-shadow: 0 0 5px ${x4.color}; }
-                    50% { text-shadow: 0 0 20px ${x4.color}; }
-                    100% { text-shadow: 0 0 5px ${x4.color}; }
-                }
-            `;
-        }
-
-        async function start() {
-            const data = await load2be4();
-
-            document.getElementById("info").innerText =
-                "2be4 geladen – ZeroThree 0/1 aktiv: " +
-                data.zeroRef.zero + " / " + data.zeroRef.one;
-
-            applyX4(data.x4);
-        }
-
-        start();
-    </script>
-
+  <a href="id.html">→ zur ID‑Ansicht</a>
 </body>
 </html>
