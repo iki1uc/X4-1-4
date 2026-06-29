@@ -1,1 +1,13 @@
+{
+  "id": "x4-engine",
+  "axis": "Y",
+  "layer": "engine",
+  "boost": 4,
+  "pipe": "x4-core",
+  "rawator": "on",
+  "safe": "on",
+  "nc": "neutral",
+  "state": "active",
+  "fusion": "scan"
+}
 
